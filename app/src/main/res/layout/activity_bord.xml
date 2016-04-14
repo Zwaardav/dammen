@@ -11,20 +11,42 @@
     tools:context="haakjeopenen.dammen.BordActivity">
 
 
-    <ImageView
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <GridLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/gridje"
+            android:src="@drawable/dambord"
+            android:background="#ff0000"
+            android:layout_gravity="center|right"
+            android:rowCount="8"
+            android:columnCount="8"
+            android:orientation="horizontal"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="0dp"
+            />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/bordimage"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/dambord"/>
+    </FrameLayout>
+
+    <!--<GridLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/bordimage"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:src="@drawable/dambord"/>
-
-    <GridLayout
-        android:layout_width="325dp"
-        android:layout_height="335dp"
         android:background="#ff0000"
         android:layout_marginTop="70dp"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="12dp"/>
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="70dp"
+        android:layout_alignParentEnd="false"/>-->
 </RelativeLayout>

@@ -20,6 +20,11 @@
         </activity>
         <activity android:name=".BordActivity">
         </activity>
+        <activity
+            android:name=".AsciiDambord"
+            android:label="@string/title_activity_ascii_dambord"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
