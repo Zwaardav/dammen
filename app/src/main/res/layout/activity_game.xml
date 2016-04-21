@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     tools:context="haakjeopenen.dammen.GameActivity" >
 
-    <haakjeopenen.dammen.game.view.SnakeView
+    <haakjeopenen.dammen.game.view.DamView
         android:id="@+id/snakeview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

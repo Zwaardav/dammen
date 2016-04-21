@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
 	public void gotodambord(View v)
 	{
-		Intent intent = new Intent(this, GameActivity.class); //AsciiDambord
+		Intent intent = new Intent(this, GameActivity.class);
 		startActivity(intent);
 	}
 }
