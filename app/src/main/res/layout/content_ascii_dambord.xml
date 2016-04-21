@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="   A  B  C  D  E  F  G  H\n\n1\n\n2\n\n3\n\n4        LOADING...\n\n5\n\n6\n\n7\n\n8"
+        android:text="   A B C D E F G H I J\n 1\n 2\n 3\n 4\n 5      LOADING...\n 6\n 7\n 8\n 9\n10"
         android:id="@+id/dambordje"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"

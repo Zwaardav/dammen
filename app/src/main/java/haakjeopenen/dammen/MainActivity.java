@@ -10,7 +10,12 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import haakjeopenen.dammen.game.model.Game;
+
 public class MainActivity extends AppCompatActivity {
+
+	private Game game;
+	private Controller controller;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
 		fab.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View view) {
-				Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+				Snackbar.make(view, "Nieuwsgierigheid doodt de kat", Snackbar.LENGTH_LONG)
 						.setAction("Action", null).show();
 			}
 		});
@@ -53,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
 	public void gotodambord(View v)
 	{
-		Intent intent = new Intent(this, AsciiDambord.class);
+		Intent intent = new Intent(this, GameActivity.class); //AsciiDambord
 		startActivity(intent);
 	}
 }
