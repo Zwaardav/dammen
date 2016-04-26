@@ -26,9 +26,9 @@ public class GameActivity extends Activity implements Observer{
         this.controller = new Controller(game);
         this.controller.addObserver(this);
         
-        DamView sv = (DamView)this.findViewById(R.id.snakeview);
-        sv.setGame(this.game);
-        sv.setOnTouchListener(controller);
+        DamView dv = (DamView)this.findViewById(R.id.snakeview);
+        dv.setGame(this.game);
+        dv.setOnTouchListener(controller);
 
         this.controller.start();
     }
