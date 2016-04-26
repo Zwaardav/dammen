@@ -109,9 +109,9 @@ public class Game extends Observable {
     }
 
     public void moveDamsteen(Direction dir) {
-        //TODO verplicht slaan
+        //DONE verplicht slaan
         //TODO niet terug kunnen springen
-        //TODO achter elkaar slaan
+        //DONE achter elkaar slaan
         //DONE je mag niet uit het bord
         //TODO laat zien wat er met een zet gaat gebeuren
 
