@@ -140,12 +140,10 @@ public class DamView extends View implements Observer {
         Sprite sprite;
 
         for (Damsteen steen : game.getDamstenen()) {
-            if (steen.isSelected())
-                sprite = Sprite.DOGE;
-            else if (steen.getKleur() == Damsteen.Kleur.WIT) {
-                sprite = Sprite.WIT;
+            if (steen.getKleur() == Damsteen.Kleur.WIT) {
+                sprite = (steen.isSelected() ? Sprite.WIT_SELECTED : Sprite.WIT);
             } else {
-                sprite = Sprite.ZWART;
+                sprite = (steen.isSelected() ? Sprite.ZWART_SELECTED : Sprite.ZWART);
             }
 
             drawBlock(canvas, steen.getPoint().x, steen.getPoint().y, sprite);
@@ -178,7 +176,6 @@ public class DamView extends View implements Observer {
     @Override
     public void update(Observable observable, Object data) {
         this.postInvalidate();
-
     }
 
     public float getCell_size() {
@@ -195,7 +192,14 @@ public class DamView extends View implements Observer {
 
     public enum Sprite {
         WIT(R.drawable.wit),
+        WIT_DAM(R.drawable.wit_dam),
+        WIT_SELECTED(R.drawable.wit_selected),
+        WIT_DAM_SELECTED(R.drawable.wit_dam_selected),
         ZWART(R.drawable.zwart),
+        ZWART_DAM(R.drawable.zwart_dam),
+        ZWART_SELECTED(R.drawable.zwart_selected),
+        ZWART_DAM_SELECTED(R.drawable.zwart_dam_selected),
+
         DOGE(R.drawable.slang);
 
         public int id;
