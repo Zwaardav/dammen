@@ -27,7 +27,7 @@ public class Controller extends Observable implements OnTouchListener {
     /**
      * The time between steps in milliseconds
      */
-    private static final long INTERVAL = 350;
+    private static final long INTERVAL = 0;
 
     private final Runnable runner = new Runnable() {
 
