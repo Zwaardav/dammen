@@ -194,8 +194,8 @@ public class DamView extends View implements Observer {
     }
 
     public enum Sprite {
-        WIT(R.drawable.wit_pixel),
-        ZWART(R.drawable.zwart_pixel),
+        WIT(R.drawable.wit),
+        ZWART(R.drawable.zwart),
         DOGE(R.drawable.slang);
 
         public int id;
