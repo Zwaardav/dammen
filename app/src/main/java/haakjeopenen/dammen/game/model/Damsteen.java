@@ -5,11 +5,21 @@ public class Damsteen {
     private Point point; // Location on the board
     private Kleur kleur;
 
+    private boolean isDam;
+
     private boolean selected = false;
 
     public Damsteen(Point point, Kleur kleur) {
         this.point = point;
         this.kleur = kleur;
+    }
+
+    public boolean isDam() {
+        return isDam;
+    }
+
+    public void setDam(boolean dam) {
+        isDam = dam;
     }
 
     public void setPoint(Point p) {
