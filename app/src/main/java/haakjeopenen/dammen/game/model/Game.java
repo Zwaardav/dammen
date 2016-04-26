@@ -54,13 +54,22 @@ public class Game extends Observable {
             for (int yrow = 0; yrow <= 3; yrow++) {
                 // ...with 5 pieces on each...
                 for (int x = 0; x <= 8; x += 2) {
-                    //TODO dit leesbaar maken en uitleggen
-                    Damsteen steen = new Damsteen(new Point(((yrow & 1) == 0 ? 1 : 0) + x, yoffset + yrow), (yoffset == 0 ? Damsteen.Kleur.ZWART : Damsteen.Kleur.WIT));
+                    //TODO dit leesbaarder maken en uitleggen
+                    Point point = new Point(to_int(isEven(yrow)) + x, yoffset + yrow);
+                    Damsteen steen = new Damsteen(point, (yoffset == 0 ? Damsteen.Kleur.ZWART : Damsteen.Kleur.WIT));
                     stenen.add(steen);
                 }
             }
         }
         return stenen;
+    }
+
+    private static int to_int(boolean c) {
+        return c ? 1 : 0;
+    }
+
+    private static boolean isEven(int n) {
+        return (n & 1) == 0;
     }
 
     /**
