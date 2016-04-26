@@ -126,10 +126,11 @@ public class Game extends Observable {
                     if (steen2.getKleur() != steen.getKleur()) {
                         //Test of je kan slaan
                         Point p2 = p.toDirection(dir);
-                        if (getDamsteen(p2) == null) {
+                        if (getDamsteen(p2) == null && isInGameBounds(p2)) {
                             damstenen.remove(steen2);
                             steen.setPoint(p2);
-                            volgendeBeurt();
+                            if (!kleurKanSlaan(beurt))
+                                volgendeBeurt();
                             return;
                         }
                     } else {
@@ -137,12 +138,11 @@ public class Game extends Observable {
                     }
                 } else if (!isInGameBounds(p)) {
                     return;
-                } else {
+                } else if (!kleurKanSlaan(beurt)) {
                     steen.setPoint(p);
                     volgendeBeurt();
                 }
             }
-
         }
     }
 
@@ -152,10 +152,20 @@ public class Game extends Observable {
             Damsteen steen2 = getDamsteen(p);
             if (steen2 != null && steen2.getKleur() != damsteen.getKleur()) {
                 Point p2 = p.toDirection(dir);
-                if (getDamsteen(p2) == null) {
+                if (getDamsteen(p2) == null && isInGameBounds(p2)) {
                     return true;
                 }
             }
+        }
+        return false;
+    }
+
+    private boolean kleurKanSlaan(Damsteen.Kleur kleur) {
+        for (Damsteen steen : damstenen)
+        {
+            if (steen.getKleur().equals(kleur) && damsteenMoetSlaan(steen))
+                // Deze steen kan slaan
+                return true;
         }
         return false;
     }
