@@ -103,6 +103,8 @@ public class Game extends Observable {
         //TODO verplicht slaan
         //TODO niet terug kunnen springen
         //TODO achter elkaar slaan
+        //TODO je mag niet uit het bord
+        //TODO laat zien wat er met een zet gaat gebeuren
 
         for (Damsteen steen : damstenen) {
             if (steen.isSelected()) {
