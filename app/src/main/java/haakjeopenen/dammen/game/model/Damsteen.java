@@ -1,43 +1,34 @@
 package haakjeopenen.dammen.game.model;
 
 public class Damsteen {
-	public enum Kleur { ZWART,WIT};
-	private Point point;
-	private int value;
-	private Kleur kleur;
+    public enum Kleur {ZWART, WIT};
+    private Point point; // Location on the board
+    private Kleur kleur;
 
+    private boolean selected = false;
 
+    public Damsteen(Point point, Kleur kleur) {
+        this.point = point;
+        this.kleur = kleur;
+    }
 
-	private boolean selected = false;
+    public void setPoint(Point p) {
+        point = p;
+    }
 
-	public Damsteen(Point point,Kleur kleur) {
-		this.point = point;
-		this.value = DEFAULT_VALUE;
-		this.kleur = kleur;
-	}
+    public Point getPoint() {
+        return this.point;
+    }
 
-	public void setPoint(Point p) {
-		point = p;
-	}
+    public Kleur getKleur() {
+        return kleur;
+    }
 
-	public int getValue() {
-		return value;
-	}
+    public boolean isSelected() {
+        return selected;
+    }
 
-	public Point getPoint() {
-		return this.point;
-	}
-
-	public Kleur getKleur() { return kleur; }
-
-	public boolean isSelected() {
-		return selected;
-	}
-
-	public void setSelected(boolean selected) {
-		this.selected = selected;
-	}
-
-	public static final int DEFAULT_VALUE = 50;
-
+    public void setSelected(boolean selected) {
+        this.selected = selected;
+    }
 }
