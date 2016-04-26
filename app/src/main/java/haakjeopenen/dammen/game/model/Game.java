@@ -104,10 +104,11 @@ public class Game extends Observable {
 
     public void moveDamsteen(Direction dir) {
         //DONE verplicht slaan
-        //TODO niet terug kunnen springen
+        //DONE niet terug kunnen springen
         //DONE achter elkaar slaan
         //DONE je mag niet uit het bord
         //TODO laat zien wat er met een zet gaat gebeuren
+        //TODO superdammen
 
         for (Damsteen steen : damstenen) {
             if (steen.isSelected()) {
@@ -132,7 +133,7 @@ public class Game extends Observable {
                     }
                 } else if (!isInGameBounds(p)) {
                     return;
-                } else if (!kleurKanSlaan(beurt)) {
+                } else if (!kleurKanSlaan(beurt) && !isTerug(beurt, steen.getPoint(), p)) {
                     steen.setPoint(p);
                     volgendeBeurt();
                 }
@@ -161,6 +162,15 @@ public class Game extends Observable {
                 // Deze steen kan slaan
                 return true;
         }
+        return false;
+    }
+
+    private boolean isTerug(Damsteen.Kleur kleur, Point p1, Point p2)
+    {
+        if (kleur == Damsteen.Kleur.WIT && p2.y > p1.y)
+            return true;
+        else if (kleur == Damsteen.Kleur.ZWART && p2.y < p1.y)
+            return true;
         return false;
     }
 
