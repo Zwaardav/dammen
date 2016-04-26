@@ -103,7 +103,7 @@ public class Game extends Observable {
         //TODO verplicht slaan
         //TODO niet terug kunnen springen
         //TODO achter elkaar slaan
-        //TODO je mag niet uit het bord
+        //DONE je mag niet uit het bord
         //TODO laat zien wat er met een zet gaat gebeuren
 
         for (Damsteen steen : damstenen) {
@@ -126,6 +126,8 @@ public class Game extends Observable {
                     } else {
                         return;
                     }
+                } else if (!isInGameBounds(p)) {
+                    return;
                 } else {
                     steen.setPoint(p);
                     volgendeBeurt();
