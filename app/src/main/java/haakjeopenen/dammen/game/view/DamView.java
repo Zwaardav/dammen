@@ -10,6 +10,7 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.View;
 
+import java.util.HashMap;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -26,14 +27,7 @@ public class DamView extends View implements Observer {
     private float margin_vertical;
     private float cell_spacing;
 
-    //TODO betere sprite referentie en opslag
-    private static final int COLOR_DOGE = Color.GREEN;
-    private static final int COLOR_WIT = Color.WHITE;
-    private static final int COLOR_ZWART = Color.BLACK;
-
-    Bitmap damsteenWit;
-    Bitmap damsteenZwart;
-    Bitmap doge;
+    HashMap<Sprite, Bitmap> sprites;
 
     public DamView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -53,9 +47,11 @@ public class DamView extends View implements Observer {
     private void init() {
 
         //Load sprites
-        damsteenWit = BitmapFactory.decodeResource(getResources(), R.drawable.wit);
-        damsteenZwart = BitmapFactory.decodeResource(getResources(), R.drawable.zwart);
-        doge = BitmapFactory.decodeResource(getResources(), R.drawable.slang);
+        sprites = new HashMap();
+
+        for (Sprite s : Sprite.values()) {
+            sprites.put(s, BitmapFactory.decodeResource(getResources(), s.id));
+        }
     }
 
 
@@ -141,19 +137,18 @@ public class DamView extends View implements Observer {
      */
     private void drawDamstenen(Canvas canvas) {
 
-        Paint itemPaint = new Paint();
-        itemPaint.setColor(COLOR_ZWART);
+        Sprite sprite;
 
         for (Damsteen steen : game.getDamstenen()) {
             if (steen.isSelected())
-                itemPaint.setColor(COLOR_DOGE);
+                sprite = Sprite.DOGE;
             else if (steen.getKleur() == Damsteen.Kleur.WIT) {
-                itemPaint.setColor(COLOR_WIT);
+                sprite = Sprite.WIT;
             } else {
-                itemPaint.setColor(COLOR_ZWART);
+                sprite = Sprite.ZWART;
             }
 
-            drawBlock(canvas, steen.getPoint().x, steen.getPoint().y, itemPaint);
+            drawBlock(canvas, steen.getPoint().x, steen.getPoint().y, sprite);
         }
     }
 
@@ -163,30 +158,20 @@ public class DamView extends View implements Observer {
      * @param canvas
      * @param x      The x coordinate as used in Point
      * @param y      The y coordinate as used in Point
-     * @param paint
+     * @param sprite
      */
-    private void drawBlock(Canvas canvas, int x, int y, Paint paint) {
+    private void drawBlock(Canvas canvas, int x, int y, Sprite sprite) {
+
+        Paint paint = new Paint();
 
         float px = margin_horizontal + (x * cell_size);
         float py = margin_vertical + (y * cell_size);
 
         Rect rect = new Rect((int) (px + cell_spacing), (int) (py + cell_spacing), (int) (px + cell_spacing + cell_size),
                 (int) (py + cell_spacing + cell_size));
-        Bitmap bitmap;
 
-        switch (paint.getColor()) {
-            case COLOR_DOGE:
-                bitmap = doge;
-                break;
-            case COLOR_WIT:
-                bitmap = damsteenWit;
-                break;
-            case COLOR_ZWART:
-                bitmap = damsteenZwart;
-                break;
-            default:
-                bitmap = doge;
-        }
+        Bitmap bitmap = sprites.get(sprite);
+
         canvas.drawBitmap(bitmap, null, rect, paint);
     }
 
@@ -206,5 +191,17 @@ public class DamView extends View implements Observer {
 
     public float getMargin_vertical() {
         return margin_vertical;
+    }
+
+    public enum Sprite {
+        WIT(R.drawable.wit_pixel),
+        ZWART(R.drawable.zwart_pixel),
+        DOGE(R.drawable.slang);
+
+        public int id;
+
+        private Sprite(int id) {
+            this.id = id;
+        }
     }
 }
