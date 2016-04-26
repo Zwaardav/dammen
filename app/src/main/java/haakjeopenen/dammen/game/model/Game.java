@@ -95,9 +95,11 @@ public class Game extends Observable {
     }
 
     public void selectDamsteen(int x, int y) {
-        damstenen.stream().filter(steen -> x == steen.getPoint().x && y == steen.getPoint().y && this.beurt == steen.getKleur()).forEach((Damsteen steen) -> {
-            steen.setSelected(true);
-        });
+        for (Damsteen steen : damstenen) {
+            if (x == steen.getPoint().x && y == steen.getPoint().y && this.beurt == steen.getKleur()) {
+                steen.setSelected(true);
+            }
+        }
     }
 
     public void moveDamsteen(Direction dir) {
