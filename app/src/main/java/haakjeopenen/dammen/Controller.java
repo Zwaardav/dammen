@@ -2,7 +2,6 @@ package haakjeopenen.dammen;
 
 import java.util.Observable;
 
-import android.app.AlertDialog;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -16,7 +15,7 @@ public class Controller extends Observable implements OnTouchListener {
 
     private float startx, starty;
 
-    private Game game;
+    private final Game game;
 
     private Handler handler;
 

@@ -13,24 +13,21 @@ import haakjeopenen.dammen.game.view.DamView;
 
 public class GameActivity extends Activity implements Observer{
 
-	private Game game;
-	private Controller controller;
-	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        
-        this.game = new Game();
-        
-        this.controller = new Controller(game);
-        this.controller.addObserver(this);
+
+        Game game = new Game();
+
+        Controller controller = new Controller(game);
+        controller.addObserver(this);
         
         DamView dv = (DamView)this.findViewById(R.id.snakeview);
-        dv.setGame(this.game);
+        dv.setGame(game);
         dv.setOnTouchListener(controller);
 
-        this.controller.start();
+        controller.start();
     }
 
     @Override

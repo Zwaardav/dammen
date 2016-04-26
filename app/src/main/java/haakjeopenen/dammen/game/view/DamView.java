@@ -27,7 +27,7 @@ public class DamView extends View implements Observer {
     private float margin_vertical;
     private float cell_spacing;
 
-    HashMap<Sprite, Bitmap> sprites;
+    private HashMap<Sprite, Bitmap> sprites;
 
     public DamView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
@@ -202,9 +202,9 @@ public class DamView extends View implements Observer {
 
         DOGE(R.drawable.slang);
 
-        public int id;
+        public final int id;
 
-        private Sprite(int id) {
+        Sprite(int id) {
             this.id = id;
         }
     }

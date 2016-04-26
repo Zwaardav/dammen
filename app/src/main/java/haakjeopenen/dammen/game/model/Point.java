@@ -1,7 +1,5 @@
 package haakjeopenen.dammen.game.model;
 
-import android.util.Log;
-
 
 public class Point{
 

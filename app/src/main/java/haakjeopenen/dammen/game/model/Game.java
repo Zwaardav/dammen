@@ -1,11 +1,7 @@
 package haakjeopenen.dammen.game.model;
 
-import android.util.Log;
-
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Observable;
-import java.util.Random;
 
 public class Game extends Observable {
 
@@ -28,10 +24,8 @@ public class Game extends Observable {
     // Flag indicating whether the game is over.
     private boolean isGameOver = false;
 
-    // All items that are on screen.
-    private Damsteen item;
     private Damsteen.Kleur beurt;
-    private LinkedList<Damsteen> damstenen;
+    private final LinkedList<Damsteen> damstenen;
 
     /**
      * Creates a new game using the default setup.
@@ -101,11 +95,9 @@ public class Game extends Observable {
     }
 
     public void selectDamsteen(int x, int y) {
-        for (Damsteen steen : damstenen) {
-            if (x == steen.getPoint().x && y == steen.getPoint().y && this.beurt == steen.getKleur()) {
-                steen.setSelected(true);
-            }
-        }
+        damstenen.stream().filter(steen -> x == steen.getPoint().x && y == steen.getPoint().y && this.beurt == steen.getKleur()).forEach((Damsteen steen) -> {
+            steen.setSelected(true);
+        });
     }
 
     public void moveDamsteen(Direction dir) {
@@ -172,9 +164,10 @@ public class Game extends Observable {
 
     private boolean isPointFree(Point p) {
         for (Damsteen steen : damstenen) {
-            if (steen.getPoint().equals(p)) return false;
+            if (steen.getPoint().equals(p))
+                return false;
         }
-        return false;
+        return true;
     }
 
     private Damsteen getDamsteen(Point p) {

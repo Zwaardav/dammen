@@ -1,9 +1,10 @@
 package haakjeopenen.dammen.game.model;
 
 public class Damsteen {
-    public enum Kleur {ZWART, WIT};
+    public enum Kleur {ZWART, WIT}
+
     private Point point; // Location on the board
-    private Kleur kleur;
+    private final Kleur kleur;
 
     private boolean isDam;
 
