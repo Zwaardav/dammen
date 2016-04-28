@@ -183,7 +183,7 @@ public class Game extends Observable {
                         return;
                     }
                 }
-                if (!kleurKanSlaan(beurt) && !isTerug(beurt, steen.getPoint(), p)) {
+                if (!kleurKanSlaan(beurt) && (steen.isDam() || !isTerug(beurt, steen.getPoint(), p))) {
                     steen.setPoint(p);
                     volgendeBeurt();
                 }
