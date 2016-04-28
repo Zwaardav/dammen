@@ -114,7 +114,7 @@ public class Game extends Observable {
         //DONE achter elkaar slaan
         //DONE je mag niet uit het bord
         //TODO laat zien wat er met een zet gaat gebeuren
-        //TODO superdammen fixen
+        //DONE superdammen fixen
         //TODO als je slaat en je kan met dezelfde steen nogmaals slaan, verplicht slaan met dezelfde steen
 
         for (Damsteen steen : damstenen) {
@@ -170,7 +170,11 @@ public class Game extends Observable {
                     //Is van de tegenstander?
                     if (steen2.getKleur() != steen.getKleur()) {
                         //Test of je kan slaan
-                        Point p2 = p.toDirection(dir);
+                        Point p2;
+                        if (!steen.isDam())
+                            p2 = p.toDirection(dir);
+                        else
+                            p2 = p;
                         if (getDamsteen(p2) == null && isInGameBounds(p2)) {
                             damstenen.remove(steen2);
                             vorigeSteenDieSloeg = steen;
