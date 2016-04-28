@@ -29,6 +29,8 @@ public class Game extends Observable {
 
     Point highlight;
 
+    private Damsteen vorigeSteenDieSloeg;
+
     /**
      * Creates a new game using the default setup.
      */
@@ -79,6 +81,8 @@ public class Game extends Observable {
         if (this.isGameOver)
             throw new IllegalStateException("Can't advance game that is over.");
 
+
+
         this.setChanged();
         this.notifyObservers();
 
@@ -118,14 +122,18 @@ public class Game extends Observable {
                 steen.setSelected(false);
 
                 Point p = steen.getPoint().toDirection(dir);
+
+                if (!isInGameBounds(p)) {return;}
+
                 Damsteen steen2 = getDamsteen(p);
-                if (steen2 != null) {
+                if (steen2 != null && (vorigeSteenDieSloeg == null || steen.equals(vorigeSteenDieSloeg) )) {
                     //Is van de tegenstander?
                     if (steen2.getKleur() != steen.getKleur()) {
                         //Test of je kan slaan
                         Point p2 = p.toDirection(dir);
                         if (getDamsteen(p2) == null && isInGameBounds(p2)) {
                             damstenen.remove(steen2);
+                            vorigeSteenDieSloeg = steen;
                             steen.setPoint(p2);
                             if (!kleurKanSlaan(beurt))
                                 volgendeBeurt();
@@ -134,9 +142,8 @@ public class Game extends Observable {
                     } else {
                         return;
                     }
-                } else if (!isInGameBounds(p)) {
-                    return;
-                } else if (!kleurKanSlaan(beurt) && !isTerug(beurt, steen.getPoint(), p)) {
+                }
+                if (!kleurKanSlaan(beurt) && !isTerug(beurt, steen.getPoint(), p)) {
                     steen.setPoint(p);
                     volgendeBeurt();
                 }
@@ -144,7 +151,7 @@ public class Game extends Observable {
         }
     }
 
-    private boolean damsteenMoetSlaan(Damsteen damsteen) {
+    public boolean damsteenMoetSlaan(Damsteen damsteen) {
         for (Direction dir : Direction.values()) {
             Point p = damsteen.getPoint().toDirection(dir);
             Damsteen steen2 = getDamsteen(p);
@@ -161,7 +168,8 @@ public class Game extends Observable {
     private boolean kleurKanSlaan(Damsteen.Kleur kleur) {
         for (Damsteen steen : damstenen)
         {
-            if (steen.getKleur().equals(kleur) && damsteenMoetSlaan(steen))
+            if (vorigeSteenDieSloeg != null && ! steen.equals(vorigeSteenDieSloeg))continue;
+            if ( steen.getKleur().equals(kleur) && damsteenMoetSlaan(steen))
                 // Deze steen kan slaan
                 return true;
         }
@@ -197,6 +205,7 @@ public class Game extends Observable {
     }
 
     private void volgendeBeurt() {
+        vorigeSteenDieSloeg = null;
         if (beurt == Damsteen.Kleur.WIT)
             beurt = Damsteen.Kleur.ZWART;
         else

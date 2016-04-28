@@ -44,4 +44,8 @@ public class Damsteen {
     public void setSelected(boolean selected) {
         this.selected = selected;
     }
+
+    public boolean equals(Damsteen o) {
+        return (point.equals(o.getPoint()) && kleur == o.getKleur());
+    }
 }
