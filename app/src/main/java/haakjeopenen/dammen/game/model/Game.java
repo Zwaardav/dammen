@@ -115,7 +115,7 @@ public class Game extends Observable {
         //DONE je mag niet uit het bord
         //TODO laat zien wat er met een zet gaat gebeuren
         //DONE superdammen fixen
-        //TODO als je slaat en je kan met dezelfde steen nogmaals slaan, verplicht slaan met dezelfde steen
+        //DONE als je slaat en je kan met dezelfde steen nogmaals slaan, verplicht slaan met dezelfde steen
 
         for (Damsteen steen : damstenen) {
             if (steen.isSelected()) {
