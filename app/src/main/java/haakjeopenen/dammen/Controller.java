@@ -8,6 +8,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 
+import haakjeopenen.dammen.game.model.Damsteen;
 import haakjeopenen.dammen.game.model.Direction;
 import haakjeopenen.dammen.game.model.Game;
 
@@ -80,8 +81,7 @@ public class Controller extends Observable implements OnTouchListener {
 
         Log.d("Controller","Touched: " + x + ", " + y );
 
-        game.setHighlight(x,y);
-
+        Damsteen selectsteen = null;
 
         if (startx == -1 || starty == -1) {
 
@@ -93,6 +93,12 @@ public class Controller extends Observable implements OnTouchListener {
             margin_vertical = game.getMargin_vertical();
 
             game.selectDamsteen(x, y);
+
+            selectsteen = game.getDamsteen(x, y);
+        }
+
+        if (game.hasHighlight() || ((selectsteen != null) && selectsteen.isDam())) {
+            game.setHighlight(x, y);
         }
 
 

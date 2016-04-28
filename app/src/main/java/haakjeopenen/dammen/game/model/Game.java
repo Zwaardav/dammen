@@ -183,7 +183,7 @@ public class Game extends Observable {
                         return;
                     }
                 }
-                if (!kleurKanSlaan(beurt) && (steen.isDam() || !isTerug(beurt, steen.getPoint(), p))) {
+                else if (!kleurKanSlaan(beurt) && (steen.isDam() || !isTerug(beurt, steen.getPoint(), p))) {
                     steen.setPoint(p);
                     volgendeBeurt();
                 }
@@ -236,6 +236,13 @@ public class Game extends Observable {
     private Damsteen getDamsteen(Point p) {
         for (Damsteen steen : damstenen) {
             if (steen.getPoint().equals(p)) return steen;
+        }
+        return null;
+    }
+
+    public Damsteen getDamsteen(int x, int y) {
+        for (Damsteen steen : damstenen) {
+            if (steen.getPoint().x == x && steen.getPoint().y == y) return steen;
         }
         return null;
     }
