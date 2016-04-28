@@ -6,7 +6,7 @@ public class Damsteen {
     private Point point; // Location on the board
     private final Kleur kleur;
 
-    private boolean isDam;
+    private boolean isDam = false;
 
     private boolean selected = false;
 

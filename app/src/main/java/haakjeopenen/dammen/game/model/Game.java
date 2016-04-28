@@ -121,11 +121,51 @@ public class Game extends Observable {
             if (steen.isSelected()) {
                 steen.setSelected(false);
 
-                Point p = steen.getPoint().toDirection(dir);
+                Point p;
+                Damsteen steen2 = null;
+
+                if (steen.isDam())
+                {
+                    int xoffset = x - steen.getPoint().x;
+                    int yoffset = y - steen.getPoint().y;
+
+                    if (Math.abs(xoffset) != Math.abs(yoffset))
+                    {
+                        System.out.println(Math.abs(xoffset) + " isn't " + Math.abs(yoffset));
+                        return;
+                    }
+
+                    int diagdirection_x = (xoffset > 0 ? -1 : 1);
+                    int diagdirection_y = (yoffset > 0 ? -1 : 1);
+
+                    boolean steenfound = false;
+
+                    for (int diagoffset = Math.abs(xoffset)-1; diagoffset >= 0; diagoffset--)
+                    {
+                        Point diagoffsetpoint = new Point(x+(diagdirection_x*diagoffset), y+(diagdirection_y*diagoffset));
+
+                        if (getDamsteen(diagoffsetpoint) != null)
+                        {
+                            if (steenfound)
+                                // 2 stenen
+                                return;
+
+                            steen2 = getDamsteen(diagoffsetpoint);
+
+                            steenfound = true;
+                        }
+                    }
+
+                    p = steen.getPoint().toDamDirection(steen, x, y);
+                }
+                else
+                {
+                    p = steen.getPoint().toDirection(dir);
+                    steen2 = getDamsteen(p);
+                }
 
                 if (!isInGameBounds(p)) {return;}
 
-                Damsteen steen2 = getDamsteen(p);
                 if (steen2 != null && (vorigeSteenDieSloeg == null || steen.equals(vorigeSteenDieSloeg) )) {
                     //Is van de tegenstander?
                     if (steen2.getKleur() != steen.getKleur()) {

@@ -75,9 +75,10 @@ public class Controller extends Observable implements OnTouchListener {
     @Override
     public boolean onTouch(View v, MotionEvent event) {
 
-        //Log.d("Controller","Touched");
         int x = (int) ((event.getX() - margin_horizontal) / cell_size);
         int y = (int) ((event.getY() - margin_vertical) / cell_size);
+
+        Log.d("Controller","Touched: " + x + ", " + y );
 
         game.setHighlight(x,y);
 

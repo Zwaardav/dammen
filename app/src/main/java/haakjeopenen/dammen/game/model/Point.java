@@ -16,6 +16,17 @@ public class Point{
 		return new Point(this.x+direction.dx, this.y+direction.dy);
 	}
 
+	/**
+	 * Only to be called if damsteen is a dam
+	 * @param x
+	 * @param y
+	 * @return
+	 */
+	public Point toDamDirection(Damsteen damsteen, int x, int y)
+	{
+		return new Point(x, y);
+	}
+
 	public String toString()
 	{
 		return "("+x+","+y+")";
