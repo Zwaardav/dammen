@@ -102,7 +102,7 @@ public class Game extends Observable {
         }
     }
 
-    public void moveDamsteen(Direction dir) {
+    public void moveDamsteen(Direction dir,int x,int y) {
         //DONE verplicht slaan
         //DONE niet terug kunnen springen
         //DONE achter elkaar slaan

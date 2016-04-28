@@ -93,7 +93,10 @@ public class Controller extends Observable implements OnTouchListener {
         }
         if (event.getAction() == MotionEvent.ACTION_UP) {
             //Log.d("Controller"," " + Direction.between(event.getX()-startx, event.getY()-starty));
-            game.moveDamsteen(Direction.between(event.getX() - startx, event.getY() - starty));
+            int x = (int) ((event.getX() - margin_horizontal) / cell_size);
+            int y = (int) ((event.getY() - margin_vertical) / cell_size);
+
+            game.moveDamsteen(Direction.between(event.getX() - startx, event.getY() - starty),x,y);
             this.resetTouchLocation();
 
         }
