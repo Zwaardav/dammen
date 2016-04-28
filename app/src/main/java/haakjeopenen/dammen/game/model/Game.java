@@ -114,7 +114,7 @@ public class Game extends Observable {
         //DONE achter elkaar slaan
         //DONE je mag niet uit het bord
         //TODO laat zien wat er met een zet gaat gebeuren
-        //TODO superdammen
+        //TODO superdammen fixen
         //TODO als je slaat en je kan met dezelfde steen nogmaals slaan, verplicht slaan met dezelfde steen
 
         for (Damsteen steen : damstenen) {
