@@ -116,6 +116,9 @@ public class Game extends Observable {
         //TODO laat zien wat er met een zet gaat gebeuren
         //DONE superdammen fixen
         //DONE als je slaat en je kan met dezelfde steen nogmaals slaan, verplicht slaan met dezelfde steen
+        //TODO win condition
+        //TODO remise
+        //TODO ai maybe?
 
         for (Damsteen steen : damstenen) {
             if (steen.isSelected()) {
