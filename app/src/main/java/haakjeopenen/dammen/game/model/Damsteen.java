@@ -25,6 +25,8 @@ public class Damsteen {
 
     public void setPoint(Point p) {
         point = p;
+        if ((kleur == Kleur.WIT && p.y == 0) || (kleur == Kleur.ZWART && p.y == 9))
+            setDam(true);
     }
 
     public Point getPoint() {
