@@ -27,6 +27,8 @@ public class Game extends Observable {
     private Damsteen.Kleur beurt;
     private final LinkedList<Damsteen> damstenen;
 
+    Point highlight;
+
     /**
      * Creates a new game using the default setup.
      */
@@ -199,6 +201,31 @@ public class Game extends Observable {
             beurt = Damsteen.Kleur.ZWART;
         else
             beurt = Damsteen.Kleur.WIT;
+    }
+
+    public void setHighlight(int x,int y) {
+        Point p = new Point(x,y);
+        if (this.isInGameBounds(p)) {
+            highlight = p;
+        } else {
+            highlight = null;
+        }
+    }
+
+    public void unsetHighlight() {
+        highlight = null;
+    }
+
+    public Point getHighlight() {
+        if(highlight != null)
+            return highlight;
+        else
+            return null;
+    }
+
+    public boolean hasHighlight() {
+        if (highlight == null) { return false; }
+        else return true;
     }
 
     public boolean isGameOver() {

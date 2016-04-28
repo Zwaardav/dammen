@@ -17,6 +17,7 @@ import java.util.Observer;
 import haakjeopenen.dammen.R;
 import haakjeopenen.dammen.game.model.Damsteen;
 import haakjeopenen.dammen.game.model.Game;
+import haakjeopenen.dammen.game.model.Point;
 
 public class DamView extends View implements Observer {
 
@@ -96,6 +97,11 @@ public class DamView extends View implements Observer {
             return;
 
         this.drawDamstenen(canvas);
+
+        if(game.hasHighlight() ) {
+            this.drawBlock(canvas,game.getHighlight(),Sprite.HIGHLIGHT);
+        }
+
         this.drawText(canvas);
     }
 
@@ -152,7 +158,7 @@ public class DamView extends View implements Observer {
                     sprite = (steen.isSelected() ? Sprite.ZWART_SELECTED : Sprite.ZWART);
             }
 
-            drawBlock(canvas, steen.getPoint().x, steen.getPoint().y, sprite);
+            drawBlock(canvas, steen.getPoint(), sprite);
         }
     }
 
@@ -160,16 +166,15 @@ public class DamView extends View implements Observer {
      * Draws a single block on the canvas
      *
      * @param canvas
-     * @param x      The x coordinate as used in Point
-     * @param y      The y coordinate as used in Point
+     * @param point
      * @param sprite
      */
-    private void drawBlock(Canvas canvas, int x, int y, Sprite sprite) {
+    private void drawBlock(Canvas canvas, Point point, Sprite sprite) {
 
         Paint paint = new Paint();
 
-        float px = margin_horizontal + (x * cell_size);
-        float py = margin_vertical + (y * cell_size);
+        float px = margin_horizontal + (point.x * cell_size);
+        float py = margin_vertical + (point.y * cell_size);
 
         Rect rect = new Rect((int) (px + cell_spacing), (int) (py + cell_spacing), (int) (px + cell_spacing + cell_size),
                 (int) (py + cell_spacing + cell_size));
@@ -206,6 +211,8 @@ public class DamView extends View implements Observer {
         ZWART_SELECTED(R.drawable.zwart_selected),
         ZWART_DAM_SELECTED(R.drawable.zwart_dam_selected),
 
+        HIGHLIGHT(R.drawable.highlight),
+
         DOGE(R.drawable.slang);
 
         public final int id;
@@ -214,4 +221,5 @@ public class DamView extends View implements Observer {
             this.id = id;
         }
     }
+
 }

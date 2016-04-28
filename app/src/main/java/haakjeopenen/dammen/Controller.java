@@ -76,6 +76,11 @@ public class Controller extends Observable implements OnTouchListener {
     public boolean onTouch(View v, MotionEvent event) {
 
         //Log.d("Controller","Touched");
+        int x = (int) ((event.getX() - margin_horizontal) / cell_size);
+        int y = (int) ((event.getY() - margin_vertical) / cell_size);
+
+        game.setHighlight(x,y);
+
 
         if (startx == -1 || starty == -1) {
 
@@ -86,17 +91,15 @@ public class Controller extends Observable implements OnTouchListener {
             margin_horizontal = game.getMargin_horizontal();
             margin_vertical = game.getMargin_vertical();
 
-            int x = (int) ((event.getX() - margin_horizontal) / cell_size);
-            int y = (int) ((event.getY() - margin_vertical) / cell_size);
-
             game.selectDamsteen(x, y);
         }
+
+
         if (event.getAction() == MotionEvent.ACTION_UP) {
             //Log.d("Controller"," " + Direction.between(event.getX()-startx, event.getY()-starty));
-            int x = (int) ((event.getX() - margin_horizontal) / cell_size);
-            int y = (int) ((event.getY() - margin_vertical) / cell_size);
 
             game.moveDamsteen(Direction.between(event.getX() - startx, event.getY() - starty),x,y);
+            game.unsetHighlight();
             this.resetTouchLocation();
 
         }
