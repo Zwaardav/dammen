@@ -45,6 +45,10 @@ public class Game extends Observable {
 
     }
 
+	/**
+     * Generates the starting board
+     * @return
+     */
     private LinkedList<Damsteen> generateStartBoard() {
         LinkedList<Damsteen> stenen = new LinkedList<>();
         // Both players...
@@ -105,6 +109,11 @@ public class Game extends Observable {
                 && point.y < this.height;
     }
 
+	/**
+     * Mark a certain damsteen as selected
+     * @param x
+     * @param y
+     */
     public void selectDamsteen(int x, int y) {
         for (Damsteen steen : damstenen) {
             if (x == steen.getPoint().x && y == steen.getPoint().y && this.beurt == steen.getKleur()) {
@@ -113,17 +122,15 @@ public class Game extends Observable {
         }
     }
 
+	/**
+     * Check whether a damsteen can move into direction dir, or in the case of a dam, to spot (x,y), and move if possible.
+     * @param dir
+     * @param x
+     * @param y
+     */
     public void moveDamsteen(Direction dir,int x,int y) {
-        //DONE verplicht slaan
-        //DONE niet terug kunnen springen
-        //DONE achter elkaar slaan
-        //DONE je mag niet uit het bord
         //TODO laat zien wat er met een zet gaat gebeuren
-        //DONE superdammen fixen
-        //DONE als je slaat en je kan met dezelfde steen nogmaals slaan, verplicht slaan met dezelfde steen
-        //DONE win condition
         //TODO remise
-        //TODO ai maybe?
 
         for (Damsteen steen : damstenen) {
             if (steen.isSelected()) {
@@ -203,6 +210,11 @@ public class Game extends Observable {
         }
     }
 
+	/**
+     * Kijk of een specifieke damsteen kan (moet) slaan
+     * @param damsteen
+     * @return
+     */
     public boolean damsteenMoetSlaan(Damsteen damsteen) {
         for (Direction dir : Direction.values()) {
             Point p = damsteen.getPoint().toDirection(dir);
@@ -217,6 +229,11 @@ public class Game extends Observable {
         return false;
     }
 
+	/**
+     * Kijk of een bepaalde kleur kan (moet) slaan
+     * @param kleur
+     * @return
+     */
     private boolean kleurKanSlaan(Damsteen.Kleur kleur) {
         for (Damsteen steen : damstenen)
         {
@@ -228,6 +245,13 @@ public class Game extends Observable {
         return false;
     }
 
+	/**
+     * Kijk of een zet van punt p1 naar p2 van kleur kleur een stap terug is
+     * @param kleur
+     * @param p1
+     * @param p2
+     * @return
+     */
     private boolean isTerug(Damsteen.Kleur kleur, Point p1, Point p2)
     {
         if (kleur == Damsteen.Kleur.WIT && p2.y > p1.y)
@@ -237,6 +261,11 @@ public class Game extends Observable {
         return false;
     }
 
+	/**
+     * Kijk of een bepaald punt vrij is.
+     * @param p
+     * @return
+     */
     private boolean isPointFree(Point p) {
         for (Damsteen steen : damstenen) {
             if (steen.getPoint().equals(p))
@@ -245,6 +274,11 @@ public class Game extends Observable {
         return true;
     }
 
+	/**
+     * Haal damsteen op die op Point p staat
+     * @param p
+     * @return
+     */
     private Damsteen getDamsteen(Point p) {
         for (Damsteen steen : damstenen) {
             if (steen.getPoint().equals(p)) return steen;
@@ -252,6 +286,12 @@ public class Game extends Observable {
         return null;
     }
 
+	/**
+     * Haal damsteen op die op vakje (x,y) staat
+     * @param x
+     * @param y
+     * @return
+     */
     public Damsteen getDamsteen(int x, int y) {
         for (Damsteen steen : damstenen) {
             if (steen.getPoint().x == x && steen.getPoint().y == y) return steen;
@@ -277,6 +317,10 @@ public class Game extends Observable {
             isGameOver = true;
     }
 
+	/**
+     * Kijk of alle stenen op het bord van dezelfde kleur zijn, oftewel een van de twee spelers heeft gewonnen
+     * @return
+     */
     private boolean checkWin() {
         Damsteen.Kleur eerstekleur = null;
         for (Damsteen steen : damstenen) {

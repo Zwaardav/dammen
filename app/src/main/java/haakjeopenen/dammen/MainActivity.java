@@ -41,6 +41,10 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+	/**
+     * Wordt aangeroepen als op de knop in het hoofdmenu wordt gedrukt. Start de activiteit
+     * @param v
+     */
     public void gotodambord(View v) {
         Intent intent = new Intent(this, GameActivity.class);
         startActivity(intent);
