@@ -7,18 +7,21 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 
+import haakjeopenen.dammen.game.model.Damsteen;
 import haakjeopenen.dammen.game.model.Game;
 import haakjeopenen.dammen.game.view.DamView;
 
 
 public class GameActivity extends Activity implements Observer{
 
+	Game game;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        Game game = new Game();
+        game = new Game();
 
         Controller controller = new Controller(game);
         controller.addObserver(this);
@@ -34,8 +37,8 @@ public class GameActivity extends Activity implements Observer{
 	public void update(Observable observable, Object data) {
 		
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle("Hahaha Wat kan je wel.nl");
-		builder.setMessage("");
+		builder.setTitle("Game over");
+		builder.setMessage(game.getWinnaar() == Damsteen.Kleur.WIT ? "Wit wint" : "Zwart wint");
 		builder.create().show();
 		
 	}

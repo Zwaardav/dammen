@@ -23,6 +23,7 @@ public class Game extends Observable {
 
     // Flag indicating whether the game is over.
     private boolean isGameOver = false;
+    private Damsteen.Kleur winnaar = null;
 
     private Damsteen.Kleur beurt;
     private final LinkedList<Damsteen> damstenen;
@@ -78,14 +79,13 @@ public class Game extends Observable {
      */
     public void advance() {
 
-        if (this.isGameOver)
-            throw new IllegalStateException("Can't advance game that is over.");
-
-
-
-        this.setChanged();
-        this.notifyObservers();
-
+        if (this.isGameOver) {
+            //throw new IllegalStateException("Can't advance game that is over.");
+        }
+        else {
+            this.setChanged();
+            this.notifyObservers();
+        }
     }
 
 
@@ -116,7 +116,7 @@ public class Game extends Observable {
         //TODO laat zien wat er met een zet gaat gebeuren
         //DONE superdammen fixen
         //DONE als je slaat en je kan met dezelfde steen nogmaals slaan, verplicht slaan met dezelfde steen
-        //TODO win condition
+        //DONE win condition
         //TODO remise
         //TODO ai maybe?
 
@@ -258,12 +258,37 @@ public class Game extends Observable {
         return beurt;
     }
 
+	/**
+     * Laat de volgende speler spelen, en bepaal of een van de spelers geen stenen meer heeft
+     */
     private void volgendeBeurt() {
         vorigeSteenDieSloeg = null;
         if (beurt == Damsteen.Kleur.WIT)
             beurt = Damsteen.Kleur.ZWART;
         else
             beurt = Damsteen.Kleur.WIT;
+
+        if (checkWin())
+            isGameOver = true;
+    }
+
+    private boolean checkWin() {
+        Damsteen.Kleur eerstekleur = null;
+        for (Damsteen steen : damstenen) {
+            if (eerstekleur == null) {
+                // Dit is de eerste steen die we zien
+                eerstekleur = steen.getKleur();
+            }
+            else if (!steen.getKleur().equals(eerstekleur))
+            {
+                // Dit is een andere steen met een andere kleur, beide spelers hebben dus nog stenen
+                return false;
+            }
+        }
+
+        // Alle stenen hebben dezelfde kleur
+        winnaar = eerstekleur;
+        return true;
     }
 
     public void setHighlight(int x,int y) {
@@ -293,6 +318,10 @@ public class Game extends Observable {
 
     public boolean isGameOver() {
         return this.isGameOver;
+    }
+
+    public Damsteen.Kleur getWinnaar() {
+        return this.winnaar;
     }
 
     public int getWidth() {
