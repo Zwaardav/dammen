@@ -49,13 +49,18 @@ public class Game extends Observable {
         LinkedList<Damsteen> stenen = new LinkedList<>();
         // Both players...
         for (int yoffset = 0; yoffset <= 6; yoffset += 6) {
+            Damsteen.Kleur genereer_kleur;
+            if (yoffset == 0)
+                genereer_kleur = Damsteen.Kleur.ZWART;
+            else
+                genereer_kleur = Damsteen.Kleur.WIT;
+
             // ...have four rows...
             for (int yrow = 0; yrow <= 3; yrow++) {
                 // ...with 5 pieces on each...
                 for (int x = 0; x <= 8; x += 2) {
-                    //TODO dit leesbaarder maken en uitleggen
                     Point point = new Point(to_int(isEven(yrow)) + x, yoffset + yrow);
-                    Damsteen steen = new Damsteen(point, (yoffset == 0 ? Damsteen.Kleur.ZWART : Damsteen.Kleur.WIT));
+                    Damsteen steen = new Damsteen(point, genereer_kleur);
                     stenen.add(steen);
                 }
             }
@@ -268,7 +273,7 @@ public class Game extends Observable {
         else
             beurt = Damsteen.Kleur.WIT;
 
-        if (checkWin())
+        if (checkWin() || checkRemise(beurt))
             isGameOver = true;
     }
 
@@ -289,6 +294,24 @@ public class Game extends Observable {
         // Alle stenen hebben dezelfde kleur
         winnaar = eerstekleur;
         return true;
+    }
+
+	/**
+	 * Kijk of alle stenen van een kleur niet verplaatst kunnen worden
+     * @param kleur
+     * @return
+     */
+    private boolean checkRemise(Damsteen.Kleur kleur) {
+        for (Damsteen steen : damstenen) {
+            if (steen.getKleur() == kleur)
+            {
+                // Kan deze?
+                //TODO check of deze steen kan
+                if (false)
+                    return true;
+            }
+        }
+        return false;
     }
 
     public void setHighlight(int x,int y) {
