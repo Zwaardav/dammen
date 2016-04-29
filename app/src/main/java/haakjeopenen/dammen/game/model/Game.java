@@ -1,5 +1,6 @@
 package haakjeopenen.dammen.game.model;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Observable;
 
@@ -25,6 +26,8 @@ public class Game extends Observable {
     private boolean isGameOver = false;
     private Damsteen.Kleur winnaar = null;
 
+    private boolean ai;
+
     private Damsteen.Kleur beurt;
     private final LinkedList<Damsteen> damstenen;
 
@@ -35,7 +38,7 @@ public class Game extends Observable {
     /**
      * Creates a new game using the default setup.
      */
-    public Game() {
+    public Game(boolean ai) {
         this.width = Game.DEFAULT_WIDTH;
         this.height = Game.DEFAULT_HEIGHT;
 
@@ -43,6 +46,7 @@ public class Game extends Observable {
 
         this.damstenen = generateStartBoard();
 
+        this.ai = ai;
     }
 
     private LinkedList<Damsteen> generateStartBoard() {
@@ -259,7 +263,8 @@ public class Game extends Observable {
     }
 
     /**
-     * Laat de volgende speler spelen, en bepaal of een van de spelers geen stenen meer heeft
+     * Laat de volgende speler spelen, en bepaal of een van de spelers geen stenen meer heeft.
+     * Laat ook de computer een zet spelen als dat aan staat.
      */
     private void volgendeBeurt() {
         vorigeSteenDieSloeg = null;
@@ -270,6 +275,10 @@ public class Game extends Observable {
 
         if (checkWin())
             isGameOver = true;
+
+        if (ai && beurt == Damsteen.Kleur.ZWART)
+            aiTurn();
+
     }
 
     private boolean checkWin() {
@@ -289,6 +298,32 @@ public class Game extends Observable {
         // Alle stenen hebben dezelfde kleur
         winnaar = eerstekleur;
         return true;
+    }
+
+	/**
+	 * AI is zwart
+     * Dit is nog behoorlijk buggy
+     */
+    private void aiTurn()
+    {
+        System.out.println("CPU's turn");
+        do {
+            Iterator<Damsteen> i = damstenen.iterator();
+            while (i.hasNext()) {
+                Damsteen steen = i.next();
+                if ((steen.getKleur() == Damsteen.Kleur.ZWART) && (!kleurKanSlaan(Damsteen.Kleur.ZWART) || damsteenMoetSlaan(steen)) && !(damsteenMoetSlaan(steen) && steen.isDam()))
+                {
+                    // Probeer deze steen dan maar.
+                    for (Direction dir : Direction.values()) {
+                        steen.setSelected(true);
+                        moveDamsteen(dir, -1, -1);
+                        if (beurt == Damsteen.Kleur.WIT)
+                            return;
+                    }
+                }
+            }
+        } while (kleurKanSlaan(Damsteen.Kleur.ZWART)); // Als alleen een dam kan slaan infinite loop
+        System.out.println("CPU is out of ideas");
     }
 
     public void setHighlight(int x,int y) {

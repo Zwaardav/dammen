@@ -43,6 +43,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void gotodambord(View v) {
         Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra("ai", false);
+        startActivity(intent);
+    }
+
+    public void gotodambord_ai(View v) {
+        Intent intent = new Intent(this, GameActivity.class);
+        intent.putExtra("ai", true);
         startActivity(intent);
     }
 }

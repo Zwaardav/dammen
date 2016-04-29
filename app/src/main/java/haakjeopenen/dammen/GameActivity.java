@@ -5,6 +5,7 @@ import java.util.Observer;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import haakjeopenen.dammen.game.model.Damsteen;
@@ -15,18 +16,22 @@ import haakjeopenen.dammen.game.view.DamView;
 public class GameActivity extends Activity implements Observer{
 
 	Game game;
+	boolean ai;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+		Intent intent = getIntent();
+		ai = intent.getBooleanExtra("ai", false);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        game = new Game();
+        game = new Game(ai);
 
         Controller controller = new Controller(game);
         controller.addObserver(this);
         
-        DamView dv = (DamView)this.findViewById(R.id.snakeview);
+        DamView dv = (DamView)this.findViewById(R.id.damview);
         dv.setGame(game);
         dv.setOnTouchListener(controller);
 
