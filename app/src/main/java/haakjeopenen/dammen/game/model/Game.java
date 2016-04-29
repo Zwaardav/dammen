@@ -313,7 +313,7 @@ public class Game extends Observable {
         else
             beurt = Damsteen.Kleur.WIT;
 
-        if (checkWin() || checkRemise(beurt))
+        if (checkWin())
             isGameOver = true;
     }
 
@@ -338,24 +338,6 @@ public class Game extends Observable {
         // Alle stenen hebben dezelfde kleur
         winnaar = eerstekleur;
         return true;
-    }
-
-	/**
-	 * Kijk of alle stenen van een kleur niet verplaatst kunnen worden
-     * @param kleur
-     * @return
-     */
-    private boolean checkRemise(Damsteen.Kleur kleur) {
-        for (Damsteen steen : damstenen) {
-            if (steen.getKleur() == kleur)
-            {
-                // Kan deze?
-                //TODO check of deze steen kan
-                if (false)
-                    return true;
-            }
-        }
-        return false;
     }
 
     public void setHighlight(int x,int y) {

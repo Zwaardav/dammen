@@ -158,7 +158,7 @@ public class DamView extends View implements Observer {
                     sprite = (steen.isSelected() ? Sprite.ZWART_SELECTED : Sprite.ZWART);
             }
 
-            if(game.getBeurt() == steen.getKleur() && game.damsteenMoetSlaan(steen)) sprite = Sprite.DOGE;
+            //if(game.getBeurt() == steen.getKleur() && game.damsteenMoetSlaan(steen)) sprite = Sprite.DOGE;
 
             drawBlock(canvas, steen.getPoint(), sprite);
         }
