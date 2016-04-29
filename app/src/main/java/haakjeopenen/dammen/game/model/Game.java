@@ -258,7 +258,7 @@ public class Game extends Observable {
         return beurt;
     }
 
-	/**
+    /**
      * Laat de volgende speler spelen, en bepaal of een van de spelers geen stenen meer heeft
      */
     private void volgendeBeurt() {
